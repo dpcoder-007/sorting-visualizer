@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import SortingVisualizer from "./app/SortingVisualizer/SortingVisualizer";
+import TopToolbar from "./app/TopToolbar/TopToolbar";
+import BottomToolbar from "./app/BottomToolbar/BottomToolbar";
+import styles from "./styles/styles.module.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`${styles.svWrapper}`}>
+      <TopToolbar />
+      <SortingVisualizer />
+      {/* <BottomToolbar /> */}
     </div>
   );
 }
