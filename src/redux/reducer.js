@@ -30,6 +30,15 @@ export const stateSlice = createSlice({
     },
     setNumOfBars: (state, action) => {
       state.numOfBars = action.payload;
+      // also generrate new random array
+      const temp = [];
+      for (let i = 0; i < action.payload; i++) {
+        temp.push(randomNumberInRange(5, 100));
+      }
+      state.array = temp;
+    },
+    setArray: (state, action) => {
+      state.array = action.payload;
     },
   },
 });
@@ -40,6 +49,7 @@ export const {
   reverseArray,
   sortArray,
   setNumOfBars,
+  setArray,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
