@@ -17,12 +17,12 @@ const BottomToolbar = () => {
   // DISPATCHER
   const dispatch = useDispatch();
   // SELECTOR
-  const { array, selectedSort, sortingInProcess } = useSelector(
+  const { arrayState, selectedSort, sortingInProcess } = useSelector(
     (state) => state.globalState
   );
   // states
   const [selectToggle, setSelectToggle] = useState(false);
-  const [sortTimeInterval, setSortTimeInterval] = useState(20);
+  const [sortTimeInterval, setSortTimeInterval] = useState(100);
 
   // Handle Visualization
   const visualize = (arrInstance) => {
@@ -43,16 +43,16 @@ const BottomToolbar = () => {
     dispatch(setSortingInProcess(true));
     switch (sortAlgo) {
       case "bubble":
-        visualize(bubbleSort(array));
+        visualize(bubbleSort(arrayState.array));
         break;
       case "heap":
-        visualize(heapSort(array));
+        visualize(heapSort(arrayState.array));
         break;
       case "merge":
-        visualize(mergeSort(array));
+        visualize(mergeSort(arrayState.array));
         break;
       case "quick":
-        visualize(quickSort(array));
+        visualize(quickSort(arrayState.array));
         break;
       default:
         console.log("no sorting algo opted");
@@ -118,6 +118,25 @@ const BottomToolbar = () => {
         </div>
       </div>
       <div className={styles.rightButtonWrapper}>
+        {/* SLIDER ::: SPEED OF SORTING */}
+        <p className={styles.text}>Speed </p>
+        <input
+          type="range"
+          id={styles.slider}
+          min={"0"}
+          max={"500"}
+          step={10}
+          value={sortTimeInterval}
+          disabled={sortingInProcess}
+          style={{ direction: "rtl" }}
+          onChange={(event) => {
+            // 1 => 999ms && 1001 => 1ms
+            setSortTimeInterval(Math.abs(event.target.value));
+          }}
+        />
+        <p id={styles.sliderRangeValue}>
+          {Math.round(500 - sortTimeInterval) / 100}
+        </p>
         {selectedSort.length ? (
           <button
             className={styles.button}
